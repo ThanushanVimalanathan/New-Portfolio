@@ -14,7 +14,7 @@ import profile_pic from './pro_pic.png'
 
 import neonBrain from './BlueNeonBrain_2.png'
 import neon_rocker from './NeonPaperPlane.png'
-import neon_world from './GlobalNetworkGlobe.png'
+import neon_world from './global.png'
 import neon_Stack from './GreenStackedPanes.png'
 
 import download_icon from './download_icon.png'

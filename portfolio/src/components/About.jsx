@@ -972,13 +972,13 @@ const About = () => {
           </div>
 
           {/* Globe decoration */}
-          <motion.div
+          <div
             className=" pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 lg:block"
             animate={{ rotate: [0, 360] }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           >
             <img src={assets.neon_world} alt="Globe" className="h-[200px] w-auto" />
-          </motion.div>
+          </div>
 
         </motion.div>
 

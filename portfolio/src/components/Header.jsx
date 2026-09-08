@@ -28,7 +28,7 @@ const Header = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <a href="#home" className="text-2xl font-bold tracking-tight text-white">
+          <a href="#" className="text-2xl font-bold tracking-tight text-white">
             <img src={assets.logo} alt="Logo" className="h-20 w-auto object-contain" />
           </a>
         </motion.div>
