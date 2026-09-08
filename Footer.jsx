@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { assets } from "../assets/assets";
 
 
@@ -80,11 +79,6 @@ const SOCIALS = [
   { label: "Email", icon: MailIcon, href: "mailto:thanushaan69@gmail.com" },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-};
-
 export default function Footer() {
   const year = new Date().getFullYear();
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -92,34 +86,17 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#05050a] pt-2  text-slate-400" id="contact">
       {/* ambient glow, matches hero background treatment */}
-      <motion.div
-        className="pointer-events-none absolute -top-10 left-1/4 h-80 w-80 rounded-full bg-violet-500/20 blur-[120px]"
-        animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="pointer-events-none absolute -bottom-32 right-1/4 h-80 w-80 rounded-full bg-blue-500/15 blur-[120px]"
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-      />
+      <div className="pointer-events-none absolute -top-10 left-1/4 h-80 w-80 rounded-full bg-violet-500/20 blur-[120px]" />
+      <div className="pointer-events-none absolute -bottom-32 right-1/4 h-80 w-80 rounded-full bg-blue-500/15 blur-[120px]" />
 
       <div className="relative  mx-auto max-w-6xl px-6">
-
+        
         {/* ---------- Link columns ---------- */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.1 } },
-          }}
-          className="grid grid-cols-2 gap-10 py-14 sm:grid-cols-4 lg:grid-cols-12"
-        >
+        <div className="grid grid-cols-2 gap-10 py-14 sm:grid-cols-4 lg:grid-cols-12">
           {/* Brand */}
-          <motion.div variants={fadeUp} className="col-span-2 sm:col-span-4 lg:col-span-5">
+          <div className="col-span-2 sm:col-span-4 lg:col-span-5">
             <a href="#" className="flex items-center gap-2 text-white">
-
+              
               <img src={assets.logo} alt="Logo" className="h-20 w-auto" />
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
@@ -130,30 +107,22 @@ export default function Footer() {
 
             <div className="mt-6 flex items-center gap-2">
               {SOCIALS.map(({ label, icon: Icon, href }) => (
-                <motion.a
+                <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  whileHover={{
-                    y: -3,
-                    scale: 1.08,
-                    boxShadow: "0 0 18px rgba(139,92,246,0.4)",
-                    borderColor: "rgba(139,92,246,0.5)",
-                  }}
-                  whileTap={{ scale: 0.94 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 18 }}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition-colors hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-violet-500/40 hover:text-white"
                 >
                   <Icon className="h-4 w-4" />
-                </motion.a>
+                </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Navigate */}
-          <motion.div variants={fadeUp} className="lg:col-span-2">
+          <div className="lg:col-span-2">
             <h3 className="text-sm font-medium text-white">Navigate</h3>
             <ul className="mt-4 space-y-3">
               {NAV_LINKS.map((link) => (
@@ -167,10 +136,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* What I build */}
-          <motion.div variants={fadeUp} className="lg:col-span-3">
+          <div className="lg:col-span-3">
             <h3 className="text-sm font-medium text-white">What I build</h3>
             <ul className="mt-4 space-y-3">
               {BUILD_LINKS.map((link) => (
@@ -184,10 +153,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Availability */}
-          <motion.div variants={fadeUp} className="col-span-2 sm:col-span-4 lg:col-span-2">
+          <div className="col-span-2 sm:col-span-4 lg:col-span-2">
             <h3 className="text-sm font-medium text-white">Availability</h3>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5">
               <span className="relative flex h-2 w-2">
@@ -205,38 +174,25 @@ export default function Footer() {
               Download resume
               <ArrowUpRightIcon className="h-3.5 w-3.5" />
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* ---------- Bottom bar ---------- */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 sm:flex-row"
-        >
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 sm:flex-row">
           <p className="text-xs text-slate-500">
             © {year} Thanushan. All rights reserved.
           </p>
           <p className="text-xs text-slate-500">
             Built with <span className="text-rose-400">♥</span> using React &amp; Tailwind CSS
           </p>
-          <motion.button
+          <button
             onClick={scrollToTop}
             aria-label="Back to top"
-            whileHover={{
-              y: -3,
-              boxShadow: "0 0 18px rgba(139,92,246,0.45)",
-              borderColor: "rgba(139,92,246,0.5)",
-            }}
-            whileTap={{ scale: 0.92 }}
-            transition={{ type: "spring", stiffness: 300, damping: 18 }}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition-colors hover:text-white"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-400 transition hover:border-violet-500/40 hover:text-white"
           >
             <ArrowUpIcon />
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     </footer>
   );

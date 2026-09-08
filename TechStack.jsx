@@ -1,6 +1,5 @@
 
 import React from "react";
-import { motion } from "framer-motion";
 
 import {
   Layers,
@@ -49,8 +48,6 @@ const SKILLS = [
     glow:
       "drop-shadow-[0_0_18px_rgba(52,211,153,0.45)]",
 
-    glowShadow: "0 0 40px rgba(52,211,153,0.15)",
-
     title: "Full-Stack Engineering",
 
     description:
@@ -82,8 +79,6 @@ const SKILLS = [
     glow:
       "drop-shadow-[0_0_18px_rgba(56,189,248,0.45)]",
 
-    glowShadow: "0 0 40px rgba(56,189,248,0.15)",
-
     title: "AI / Machine Learning",
 
     description:
@@ -114,8 +109,6 @@ const SKILLS = [
 
     glow:
       "drop-shadow-[0_0_18px_rgba(167,139,250,0.5)]",
-
-    glowShadow: "0 0 40px rgba(167,139,250,0.18)",
 
     title: "Generative AI",
 
@@ -229,18 +222,9 @@ const STACK = [
 // SKILL CARD
 // -----------------------------------------------------------------------------
 
-function SkillCard({ skill, index }) {
+function SkillCard({ skill }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{
-        y: -6,
-        boxShadow: skill.glowShadow,
-        borderColor: "rgba(148,163,184,0.35)",
-      }}
+    <div
       className="
         group
         relative
@@ -253,11 +237,14 @@ function SkillCard({ skill, index }) {
         m-auto
         backdrop-blur-sm
 
-        transition-colors
+        transition-all
         duration-300
         ease-out
 
+        hover:-translate-y-1
+        hover:border-slate-700
         hover:bg-slate-900/60
+        hover:shadow-2xl
       "
     >
 
@@ -283,7 +270,7 @@ function SkillCard({ skill, index }) {
       />
 
       {/* Large background icon */}
-      <motion.div
+      <div
         className={`
           pointer-events-none
           absolute
@@ -292,15 +279,18 @@ function SkillCard({ skill, index }) {
           h-28
           w-28
           opacity-90
+          transition-all
+          duration-500
+
+          group-hover:scale-110
+          group-hover:opacity-100
 
           ${skill.iconColor}
           ${skill.glow}
         `}
-        whileHover={{ scale: 1.12 }}
-        transition={{ duration: 0.4 }}
       >
         {skill.icon}
-      </motion.div>
+      </div>
 
 
       {/* Number */}
@@ -356,13 +346,9 @@ function SkillCard({ skill, index }) {
           gap-y-2.5
         "
       >
-        {skill.items.map((item, i) => (
-          <motion.li
+        {skill.items.map((item) => (
+          <li
             key={item}
-            initial={{ opacity: 0, x: -8 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: index * 0.12 + 0.2 + i * 0.04 }}
             className="
               flex
               items-center
@@ -385,11 +371,11 @@ function SkillCard({ skill, index }) {
             />
 
             {item}
-          </motion.li>
+          </li>
         ))}
       </ul>
 
-    </motion.div>
+    </div>
   );
 }
 
@@ -402,14 +388,9 @@ function StackIcon({
   icon: Icon,
   label,
   color,
-  index = 0,
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16, scale: 0.9 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
+    <div
       className="
         group
         flex
@@ -420,15 +401,7 @@ function StackIcon({
     >
 
       {/* Icon container */}
-      <motion.div
-        whileHover={{
-          y: -4,
-          scale: 1.08,
-          borderColor: "rgba(59,130,246,0.6)",
-          backgroundColor: "rgba(23,37,84,0.4)",
-          boxShadow: `0 0 24px ${color}55`,
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 18 }}
+      <div
         className="
           flex
           h-16
@@ -441,19 +414,36 @@ function StackIcon({
           border-slate-800
           bg-slate-900/60
           backdrop-blur-sm
+
+          transition-all
+          duration-300
+          ease-out
+
+          hover:-translate-y-1
+          hover:scale-105
+          hover:border-blue-500/50
+          hover:bg-blue-950/40
+          hover:shadow-lg
+          hover:shadow-blue-500/10
         "
       >
 
-        <motion.div whileHover={{ scale: 1.15, rotate: 6 }} transition={{ duration: 0.3 }}>
-          <Icon
-            className="h-7 w-7"
-            style={{
-              color,
-            }}
-          />
-        </motion.div>
+        <Icon
+          className="
+            h-7
+            w-7
 
-      </motion.div>
+            transition-all
+            duration-300
+
+            group-hover:scale-110
+          "
+          style={{
+            color,
+          }}
+        />
+
+      </div>
 
 
       {/* Label */}
@@ -471,7 +461,7 @@ function StackIcon({
         {label}
       </span>
 
-    </motion.div>
+    </div>
   );
 }
 
@@ -501,11 +491,7 @@ const TechStack = () => {
       >
 
         {/* Section heading */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
+        <p
           className="
             text-[23px]
             font-semibold
@@ -514,7 +500,7 @@ const TechStack = () => {
           "
         >
           WHAT I BUILD
-        </motion.p>
+        </p>
 
 
         {/* Skill cards */}
@@ -527,11 +513,10 @@ const TechStack = () => {
             md:grid-cols-3
           "
         >
-          {SKILLS.map((skill, index) => (
+          {SKILLS.map((skill) => (
             <SkillCard
               key={skill.number}
               skill={skill}
-              index={index}
             />
           ))}
         </div>
@@ -547,11 +532,7 @@ const TechStack = () => {
           "
         >
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5 }}
+          <p
             className="
               text-[23px]
               font-semibold
@@ -560,7 +541,7 @@ const TechStack = () => {
             "
           >
             TECHNOLOGY STACK
-          </motion.p>
+          </p>
 
 
           <div
@@ -573,11 +554,10 @@ const TechStack = () => {
               gap-y-8
             "
           >
-            {STACK.map((tech, index) => (
+            {STACK.map((tech) => (
               <StackIcon
                 key={tech.label}
                 {...tech}
-                index={index}
               />
             ))}
           </div>
@@ -592,3 +572,4 @@ const TechStack = () => {
 
 
 export default TechStack;
+

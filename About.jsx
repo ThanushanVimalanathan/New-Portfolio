@@ -1,6 +1,5 @@
 
 import React from "react";
-import { motion } from "framer-motion";
 import {
   User,
   MapPin,
@@ -67,7 +66,7 @@ const exploring = [
 // ACTIVITY BOX
 // -----------------------------------------------------------------------------
 
-function ActivityBox({ level, delay = 0 }) {
+function ActivityBox({ level }) {
   const colors = {
     0: "bg-green-950/60",
     1: "bg-green-900/70",
@@ -77,20 +76,17 @@ function ActivityBox({ level, delay = 0 }) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.4 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.25, delay }}
-      whileHover={{
-        scale: 1.4,
-        boxShadow: level >= 3 ? "0 0 8px rgba(74,222,128,0.8)" : "0 0 6px rgba(74,222,128,0.5)",
-      }}
+    <div
       className={`
         h-[10px]
         w-[10px]
         rounded-[2px]
         ${colors[level]}
+        transition-all
+        duration-200
+        hover:scale-125
+        hover:ring-1
+        hover:ring-green-300/60
       `}
     />
   );
@@ -100,33 +96,24 @@ function ActivityBox({ level, delay = 0 }) {
 // EXPLORING ITEM
 // -----------------------------------------------------------------------------
 
-function ExploringItem({ item, index = 0 }) {
+function ExploringItem({ item }) {
   const Icon = item.icon;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 16 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.4, delay: index * 0.09 }}
-      whileHover={{
-        y: -2,
-        boxShadow: "0 0 20px rgba(139,92,246,0.15)",
-        borderColor: "rgba(139,92,246,0.4)",
-      }}
-      className=" group flex items-center gap-4 rounded-lg border  border-slate-800  bg-slate-800 px-4 py-3 transition-colors duration-300 hover:bg-violet-950/20"
-    >
-      <motion.div whileHover={{ scale: 1.15, rotate: 5 }} transition={{ duration: 0.3 }}>
-        <Icon
-          className={`
-            h-6
-            w-6
-            shrink-0
-            ${item.color}
-          `}
-          strokeWidth={1.5}
-        />
-      </motion.div>
+    <div
+      className=" group flex items-center gap-4 rounded-lg border  border-slate-800  bg-slate-800 px-4 py-3 transition-all duration-300 hover:-translate-y-[2px]  hover:border-violet-500/40  hover:bg-violet-950/20 hover:shadow-lg hover:shadow-violet-500/5">
+      <Icon
+        className={`
+          h-6
+          w-6
+          shrink-0
+          ${item.color}
+          transition-transform
+          duration-300
+          group-hover:scale-110
+        `}
+        strokeWidth={1.5}
+      />
 
       <span
         className="
@@ -139,18 +126,13 @@ function ExploringItem({ item, index = 0 }) {
       >
         {item.title}
       </span>
-    </motion.div>
+    </div>
   );
 }
 
 // -----------------------------------------------------------------------------
 // ABOUT SECTION
 // -----------------------------------------------------------------------------
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 26 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-};
 
 const About = () => {
   return (
@@ -168,7 +150,7 @@ const About = () => {
       "
     >
       {/* Background glow */}
-      <motion.div
+      <div
         className="
           pointer-events-none
           absolute
@@ -180,11 +162,9 @@ const About = () => {
           bg-blue-600/5
           blur-[140px]
         "
-        animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <motion.div
+      <div
         className="
           pointer-events-none
           absolute
@@ -196,8 +176,6 @@ const About = () => {
           bg-violet-600/5
           blur-[140px]
         "
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
 
       {/* Main container */}
@@ -224,13 +202,7 @@ const About = () => {
           {/* ABOUT ME */}
           {/* =============================================================== */}
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUp}
-            className="relative"
-          >
+          <div className="relative">
 
             <p
               className="
@@ -322,14 +294,8 @@ const About = () => {
             </div>
 
             {/* Button */}
-            <motion.a
+            <a
               href="https://www.linkedin.com/in/thanushanvimalanathan"
-              whileHover={{
-                y: -2,
-                boxShadow: "0 0 24px rgba(139,92,246,0.25)",
-                borderColor: "rgba(167,139,250,0.7)",
-              }}
-              whileTap={{ scale: 0.97 }}
               className="
                 group
                 mt-6
@@ -345,9 +311,12 @@ const About = () => {
                 text-sm
                 font-medium
                 text-white
-                transition-colors
+                transition-all
                 duration-300
+                hover:border-violet-400
                 hover:bg-violet-500/10
+                hover:shadow-lg
+                hover:shadow-violet-500/10
               "
             >
               Know More About Me
@@ -362,19 +331,15 @@ const About = () => {
                   group-hover:translate-x-1
                 "
               />
-            </motion.a>
+            </a>
 
-          </motion.div>
+          </div>
 
           {/* =============================================================== */}
           {/* PROFILE IMAGE */}
           {/* =============================================================== */}
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          <div
             className="
               relative
               flex
@@ -385,36 +350,32 @@ const About = () => {
           >
 
             {/* Orbit */}
-            <motion.div
+            <div
               className="
                 absolute
                 h-[350px]
                 w-[300px]
+                rotate-[35deg]
                 rounded-[50%]
                 border
                 border-violet-500/50
               "
-              style={{ rotate: 35 }}
-              animate={{ rotate: [35, 395] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
             />
 
-            <motion.div
+            <div
               className="
                 absolute
                 h-[350px]
                 w-[300px]
+                -rotate-[35deg]
                 rounded-[50%]
                 border
                 border-blue-500/30
               "
-              style={{ rotate: -35 }}
-              animate={{ rotate: [-35, -395] }}
-              transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
             />
 
             {/* Orbit dots */}
-            <motion.div
+            <div
               className="
                 absolute
                 left-[8%]
@@ -423,18 +384,11 @@ const About = () => {
                 w-3
                 rounded-full
                 bg-blue-400
+                shadow-[0_0_15px_rgba(59,130,246,0.8)]
               "
-              animate={{
-                boxShadow: [
-                  "0 0 10px rgba(59,130,246,0.6)",
-                  "0 0 20px rgba(59,130,246,1)",
-                  "0 0 10px rgba(59,130,246,0.6)",
-                ],
-              }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            <motion.div
+            <div
               className="
                 absolute
                 right-[13%]
@@ -443,23 +397,12 @@ const About = () => {
                 w-3
                 rounded-full
                 bg-cyan-400
+                shadow-[0_0_15px_rgba(34,211,238,0.8)]
               "
-              animate={{
-                boxShadow: [
-                  "0 0 10px rgba(34,211,238,0.6)",
-                  "0 0 20px rgba(34,211,238,1)",
-                  "0 0 10px rgba(34,211,238,0.6)",
-                ],
-              }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
             />
 
             {/* Profile card */}
-            <motion.div
-              whileHover={{
-                boxShadow: "0 0 40px rgba(139,92,246,0.3)",
-                borderColor: "rgba(167,139,250,0.6)",
-              }}
+            <div
               className="
                 relative
                 z-10
@@ -538,19 +481,15 @@ const About = () => {
 
               </div>
 
-            </motion.div>
+            </div>
 
-          </motion.div>
+          </div>
 
           {/* =============================================================== */}
           {/* GITHUB ACTIVITY */}
           {/* =============================================================== */}
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUp}
+          <div
             className="
               border-l
               border-slate-800/70
@@ -669,7 +608,7 @@ const About = () => {
                   "
                 >
 
-                  {activity.map((item, itemIndex) => (
+                  {activity.map((item) => (
                     <div
                       key={item.id}
                       className="flex flex-col gap-[3px]"
@@ -682,7 +621,6 @@ const About = () => {
                               ? 0
                               : item.level
                           }
-                          delay={(itemIndex * 5 + day) * 0.008}
                         />
                       ))}
                     </div>
@@ -695,16 +633,10 @@ const About = () => {
             </div>
 
             {/* GitHub button */}
-            <motion.a
+            <a
               href="https://github.com/"
               target="_blank"
               rel="noreferrer"
-              whileHover={{
-                y: -2,
-                boxShadow: "0 0 24px rgba(139,92,246,0.25)",
-                borderColor: "rgba(167,139,250,0.7)",
-              }}
-              whileTap={{ scale: 0.97 }}
               className="
                 group
                 mt-22
@@ -720,9 +652,12 @@ const About = () => {
                 text-sm
                 font-medium
                 text-white
-                transition-colors
+                transition-all
                 duration-300
+                hover:border-violet-400
                 hover:bg-violet-500/10
+                hover:shadow-lg
+                hover:shadow-violet-500/10
               "
             >
 
@@ -741,9 +676,9 @@ const About = () => {
                 "
               />
 
-            </motion.a>
+            </a>
 
-          </motion.div>
+          </div>
 
           {/* =============================================================== */}
           {/* CURRENTLY EXPLORING */}
@@ -773,11 +708,10 @@ const About = () => {
 
             <div className="mt-5 space-y-2">
 
-              {exploring.map((item, index) => (
+              {exploring.map((item) => (
                 <ExploringItem
                   key={item.title}
                   item={item}
-                  index={index}
                 />
               ))}
 
@@ -791,14 +725,7 @@ const About = () => {
         {/* CONTACT CTA */}
         {/* ----------------------------------------------------------------- */}
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{
-            boxShadow: "0 0 60px rgba(139,92,246,0.15)",
-          }}
+        <div
           className="
             relative
             mt-15
@@ -815,7 +742,7 @@ const About = () => {
         >
 
           {/* Background glow */}
-          <motion.div
+          <div
             className="
               pointer-events-none
               absolute
@@ -826,22 +753,16 @@ const About = () => {
               bg-violet-600/10
               blur-[90px]
             "
-            animate={{ opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
 
           {/* Paper plane */}
-          <motion.div
-            className=" absolute left-5  hidden lg:block"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
+          <div className=" absolute left-5  hidden lg:block">
             <img
               src={assets.neon_rocker}
               alt="Paper Plane"
               className="h-[200px] w-auto mt-auto "
             />
-          </motion.div>
+          </div>
 
           {/* CTA content */}
           <div
@@ -917,14 +838,8 @@ const About = () => {
             "
           >
 
-            <motion.a
+            <a
               href="#contact"
-              whileHover={{
-                scale: 1.04,
-                boxShadow: "0 0 34px rgba(139,92,246,0.5)",
-              }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="
                 inline-flex
                 items-center
@@ -939,15 +854,16 @@ const About = () => {
                 text-white
                 shadow-lg
                 shadow-violet-600/20
-                transition-colors
+                transition-all
                 duration-300
                 hover:bg-violet-500
+                hover:shadow-violet-500/30
               "
             >
               Get In Touch
 
               <ArrowRight className="h-5 w-5" />
-            </motion.a>
+            </a>
 
             <div className="mt-1 space-y-3">
 
@@ -972,15 +888,11 @@ const About = () => {
           </div>
 
           {/* Globe decoration */}
-          <motion.div
-            className=" pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 lg:block"
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          >
+          <div className=" pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 lg:block">
             <img src={assets.neon_world} alt="Globe" className="h-[200px] w-auto" />
-          </motion.div>
+          </div>
 
-        </motion.div>
+        </div>
 
       </div>
     </section>
@@ -988,3 +900,4 @@ const About = () => {
 };
 
 export default About;
+

@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { PROJECTS } from "../assets/assets";
 
@@ -29,38 +28,20 @@ const BADGE_TONES = {
 
 function FilterPill({ label, active, onClick }) {
   return (
-    <motion.button
+    <button
       onClick={onClick}
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.96 }}
-      className={`relative rounded-full border px-5 py-2 text-sm font-medium transition-colors ${
+      className={`rounded-full border px-5 py-2 text-sm font-medium transition ${
         active
-          ? "border-violet-500 text-white"
+          ? "border-violet-500 bg-violet-600 text-white"
           : "border-slate-700 text-slate-300 hover:border-slate-500 hover:text-white"
       }`}
     >
-      {active && (
-        <motion.span
-          layoutId="activeFilterPill"
-          className="absolute inset-0 -z-10 rounded-full bg-violet-600 shadow-[0_0_18px_rgba(139,92,246,0.5)]"
-          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        />
-      )}
       {label}
-    </motion.button>
+    </button>
   );
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: (i % 8) * 0.06, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
-
-function ProjectCard({ project, index }) {
+function ProjectCard({ project }) {
   const handleGithubClick = () => {
     if (project.repo) {
       window.open(project.repo, "_blank", "noopener,noreferrer");
@@ -68,29 +49,12 @@ function ProjectCard({ project, index }) {
   };
 
   return (
-    <motion.div
-      layout
-      custom={index}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      exit={{ opacity: 0, y: -20, transition: { duration: 0.25 } }}
-      whileHover={{
-        y: -6,
-        boxShadow: "0 0 30px rgba(139,92,246,0.18)",
-        borderColor: "rgba(148,163,184,0.4)",
-      }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40"
-    >
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40">
       <div className="relative h-44 w-full overflow-hidden">
-        <motion.img
+        <img
           src={project.image}
           alt={project.title}
           className="h-full w-full object-cover"
-          whileHover={{ scale: 1.08 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
         />
 
         <span
@@ -123,27 +87,21 @@ function ProjectCard({ project, index }) {
         </div>
 
         <div className="mt-5 flex items-center gap-3 pt-1">
-          <motion.button
+          <button
             type="button"
             aria-label={`View ${project.title} source on GitHub`}
             onClick={handleGithubClick}
             disabled={!project.repo}
-            whileHover={project.repo ? {
-              scale: 1.1,
-              boxShadow: "0 0 16px rgba(148,163,184,0.35)",
-              borderColor: "rgba(148,163,184,0.6)",
-            } : {}}
-            whileTap={project.repo ? { scale: 0.92 } : {}}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 text-slate-300 transition-colors hover:border-slate-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 text-slate-300 transition hover:border-slate-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
           >
             <GithubIcon
               className="h-4 w-4"
               aria-hidden="true"
             />
-          </motion.button>
+          </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -173,13 +131,7 @@ export default function ProjectsSection() {
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col gap-6 border-t border-slate-800 pt-10 sm:flex-row sm:items-end sm:justify-between"
-        >
+        <div className="flex flex-col gap-6 border-t border-slate-800 pt-10 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[23px] font-semibold tracking-wide text-violet-500">
               FEATURED WORK
@@ -201,39 +153,25 @@ export default function ProjectsSection() {
               />
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Projects */}
-        <motion.div layout className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <AnimatePresence mode="popLayout">
-            {visibleProjects.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                project={project}
-                index={index}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {visibleProjects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+            />
+          ))}
+        </div>
 
         {/* View All / Show Less */}
         {filteredProjects.length > 8 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-12 flex justify-center"
-          >
-            <motion.button
+          <div className="mt-12 flex justify-center">
+            <button
               type="button"
               onClick={() => setShowAll(!showAll)}
-              whileHover={{
-                y: -2,
-                boxShadow: "0 0 20px rgba(148,163,184,0.15)",
-                borderColor: "rgba(148,163,184,0.5)",
-              }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 rounded-lg border border-slate-700 px-6 py-3 text-sm font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:text-white"
+              className="flex items-center gap-2 rounded-lg border border-slate-700 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:text-white"
             >
               {showAll ? "Show Less" : "View All Projects"}
 
@@ -242,8 +180,8 @@ export default function ProjectsSection() {
                   showAll ? "-rotate-90" : "rotate-0"
                 }`}
               />
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
         )}
       </div>
     </section>
